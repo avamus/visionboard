@@ -121,7 +121,7 @@ export const POST = async (request: Request) => {
     }
 
     const pool = createPool({
-      connectionString: process.env.visionboard_PRISMA_URL
+      connectionString: process.env.POSTGRES_PRISMA_URL
     });
 
     // Get the current highest call number for this member
@@ -222,7 +222,7 @@ export const PUT = async (request: Request) => {
     }
 
     const pool = createPool({
-      connectionString: process.env.visionboard_PRISMA_URL
+      connectionString: process.env.POSTGRES_PRISMA_URL
     });
 
     const { rows } = await pool.sql`
@@ -267,7 +267,7 @@ export const DELETE = async (request: Request) => {
     }
 
     const pool = createPool({
-      connectionString: process.env.visionboard_PRISMA_URL
+      connectionString: process.env.POSTGRES_PRISMA_URL
     });
 
     const { rows } = await pool.sql`
