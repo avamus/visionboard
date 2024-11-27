@@ -54,9 +54,9 @@ export const GET = async (request: Request) => {
       return NextResponse.json({ error: 'Member ID required' }, { status: 400 });
     }
 
-    const pool = createPool({
-      connectionString: process.env.visionboard_PRISMA_URL
-    });
+const pool = createPool({
+  connectionString: process.env.POSTGRES_PRISMA_URL
+});
 
     const { rows } = await pool.sql`
       SELECT *
