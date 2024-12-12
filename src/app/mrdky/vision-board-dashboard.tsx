@@ -15,6 +15,8 @@ import League from './league';
 import { debounce } from 'lodash';
 import { Maximize2 } from 'lucide-react'
 import LoadingSpinner from './loading-spinner'
+import { useState, useEffect } from 'react';
+import { getRandomQuote, shouldUpdateQuote } from './quoteUtils';
 
 const MobileNotice = () => (
   <Card className="p-6 bg-white rounded-[20px] shadow-lg text-center">
@@ -403,6 +405,42 @@ export default function VisionBoardDashboardClient() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isFullScreen, setIsFullScreen] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
+  const [quote, setQuote] = useState({ text: "", author: "" });
+
+  const updateQuote = () => {
+    const newQuote = getRandomQuote();
+    setQuote(newQuote);
+    localStorage.setItem('dailyQuote', JSON.stringify({
+      quote: newQuote,
+      timestamp: new Date().toISOString()
+    }));
+  };
+
+  useEffect(() => {
+    const stored = localStorage.getItem('dailyQuote');
+    if (stored) {
+      const { quote: storedQuote, timestamp } = JSON.parse(stored);
+      if (shouldUpdateQuote(timestamp)) {
+        updateQuote();
+      } else {
+        setQuote(storedQuote);
+      }
+    } else {
+      updateQuote();
+    }
+
+    const interval = setInterval(() => {
+      const stored = localStorage.getItem('dailyQuote');
+      if (stored) {
+        const { timestamp } = JSON.parse(stored);
+        if (shouldUpdateQuote(timestamp)) {
+        updateQuote();
+        }
+      }
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
 useEffect(() => {
     getMemberId().then(setMemberId);
@@ -978,27 +1016,35 @@ return (
                     />
                     <h2 className="text-2xl font-bold text-[#000000]">Quote of the Day</h2>
                   </div>
-                  <Button variant="ghost" size="icon" className="hover:bg-transparent text-gray-400 hover:text-gray-600">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="hover:bg-transparent text-gray-400 hover:text-gray-600"
+                    onClick={updateQuote}
+                  >
                     <RotateCw className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="h-[calc(3*5rem+2*1rem)]">
-                  <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex flex-col justify-center">
-                    <p className="text-center font-medium flex-grow flex items-center justify-center"
-                      style={{
-                        fontSize: 'clamp(1rem, 3vw, 1.3rem)',
-                        lineHeight: '1.4',
-                        maxWidth: '100%',
-                      }}
-                    >
-                      "The future depends on what you do today."
-                    </p>
-                    <p className="text-right font-semibold text-gray-700 mt-2 pr-4">
-                      Mahatma Gandhi
-                    </p>
+                  <div className="h-[calc(3*5rem+2*1rem)]">
+                    <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex flex-col justify-center">
+                      <p 
+                        className="text-center font-medium flex-grow flex items-center justify-center"
+                        style={{
+                          fontSize: 'clamp(1rem, 3vw, 1.3rem)',
+                          lineHeight: '1.4',
+                          maxWidth: '100%',
+                        }}
+                      >
+                        {quote.text && `"${quote.text}"`}
+                      </p>
+                      {quote.author && (
+                        <p className="text-right font-semibold text-gray-700 mt-2 pr-4">
+                          {quote.author}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
 
               <Card className="p-6 bg-white rounded-[20px] shadow-lg flex-1">
                 <div className="flex items-center justify-between mb-8">
