@@ -1027,11 +1027,11 @@ return (
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       <img 
-                        src="https://res.cloudinary.com/drkudvyog/image/upload/v1733951551/Areas_of_Improvement_icon_duha_kplce1.png"
-                        alt="Daily Plan Icon"
+                        src="https://res.cloudinary.com/drkudvyog/image/upload/v1733953951/Areas_of_improvement_icon_duha_u5o65j.png"
+                        alt="Quote of the Day Icon"
                         className="h-6 w-6"
                       />
-                      <h2 className="text-2xl font-semibold text-[#000000]">Daily Personalized Plan</h2>
+                      <h2 className="text-2xl font-semibold text-[#000000]">Quote of the Day</h2>
                     </div>
                     <Button variant="ghost" size="icon" className="hover:bg-transparent">
                       <RefreshCcw className="w-4 h-4 text-gray-400" />
@@ -1058,11 +1058,11 @@ return (
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       <img 
-                        src="https://res.cloudinary.com/drkudvyog/image/upload/v1733953951/Areas_of_improvement_icon_duha_u5o65j.png"
-                        alt="Areas of Improvement Icon"
+                        src="https://res.cloudinary.com/drkudvyog/image/upload/v1733951551/Areas_of_Improvement_icon_duha_kplce1.png"
+                        alt="Today's Focus Icon"
                         className="h-6 w-6"
                       />
-                      <h2 className="text-2xl font-semibold text-[#000000]">Areas of Improvement</h2>
+                      <h2 className="text-2xl font-semibold text-[#000000]">Today's Focus</h2>
                     </div>
                   <Button variant="ghost" size="icon" className="hover:bg-transparent">
                     <RefreshCcw className="w-4 h-4 text-gray-400" />
