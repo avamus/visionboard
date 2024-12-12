@@ -1,6 +1,6 @@
-import { quotes } from './quotes';
+import { Quote, quotes } from './quotes';
 
-export function getRandomQuote() {
+export function getRandomQuote(): Quote {
   const index = Math.floor(Math.random() * quotes.length);
   return quotes[index];
 }
