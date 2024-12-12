@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { ArrowLeft, ArrowRight, RefreshCcw, TrendingUp, Palette, Calendar, Clock, Upload, X, Lock } from 'lucide-react'
+import { ArrowLeft, ArrowRight, RotateCw, TrendingUp, Palette, Calendar, Clock, Upload, X, Lock } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import { CustomCalendar } from "@/components/custom-calendar"
 import { LeagueChart } from '@/components/LeagueChart'
@@ -446,27 +446,6 @@ useEffect(() => {
     loadVisionBoard()
 }, [])
 
-useEffect(() => {
-  const fetchDailyTasks = async () => {
-    try {
-      const memberId = await getMemberId();
-      const response = await fetch(`/api/daily-tasks?memberId=${memberId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setDailyTasks([
-          { text: data.task_1, color: 'bg-[#ffffff]' },
-          { text: data.task_2, color: 'bg-[#ffffff]' },
-          { text: data.task_3, color: 'bg-[#ffffff]' },
-        ]);
-      }
-    } catch (error) {
-      console.error('Error fetching daily tasks:', error);
-    }
-  };
-
-  fetchDailyTasks();
-}, []);
-
   const calendar = Array.from({ length: 30 }, (_, i) => i + 1)
   const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
@@ -492,27 +471,6 @@ useEffect(() => {
   };
 
   fetchStreakData();
-}, []);
-
-useEffect(() => {
-  const fetchImprovements = async () => {
-    try {
-      const memberId = await getMemberId();
-      const response = await fetch(`/api/improvements?memberId=${memberId}`);
-      if (response.ok) {
-        const data = await response.json();
-        setImprovements([
-          { text: data.improvement_1, color: 'bg-[#ffffff]' },
-          { text: data.improvement_2, color: 'bg-[#ffffff]' },
-          { text: data.improvement_3, color: 'bg-[#ffffff]' },
-        ]);
-      }
-    } catch (error) {
-      console.error('Error fetching improvements:', error);
-    }
-  };
-
-  fetchImprovements();
 }, []);
 
 useEffect(() => {
@@ -559,18 +517,6 @@ useEffect(() => {
 
   fetchAchievementData();
 }, []);
-
-  const [dailyTasks, setDailyTasks] = useState([
-  { text: 'Loading...', color: 'bg-[#ffffff]' },
-  { text: 'Loading...', color: 'bg-[#ffffff]' },
-  { text: 'Loading...', color: 'bg-[#ffffff]' },
-]);
-
-  const [improvements, setImprovements] = useState([
-  { text: 'Loading...', color: 'bg-[#ffffff]' },
-  { text: 'Loading...', color: 'bg-[#ffffff]' },
-  { text: 'Loading...', color: 'bg-[#ffffff]' },
-]);
 
   const [activities, setActivities] = useState<ActivityCircle[]>([
     { value: 0, label: 'TODAY', progress: 0, color: '#5b06be', icon: 'clock', max: 10 },
@@ -1022,59 +968,68 @@ return (
             />
 
             <div className="space-y-4 flex flex-col h-full">
-              <Card className="p-3 bg-white rounded-[20px] shadow-lg flex-1">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <img 
-                        src="https://res.cloudinary.com/drkudvyog/image/upload/v1733953951/Areas_of_improvement_icon_duha_u5o65j.png"
-                        alt="Quote of the Day Icon"
-                        className="h-6 w-6"
-                      />
-                      <h2 className="text-2xl font-semibold text-[#000000]">Quote of the Day</h2>
-                    </div>
-                    <Button variant="ghost" size="icon" className="hover:bg-transparent">
-                      <RefreshCcw className="w-4 h-4 text-gray-400" />
-                    </Button>
+              <Card className="p-6 bg-white rounded-[20px] shadow-lg flex-1">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-2">
+                    <img 
+                      src="https://res.cloudinary.com/drkudvyog/image/upload/v1733953951/Areas_of_improvement_icon_duha_u5o65j.png"
+                      alt="Quote of the Day Icon"
+                      className="h-6 w-6"
+                    />
+                    <h2 className="text-2xl font-bold text-[#000000]">Quote of the Day</h2>
                   </div>
-                  <div className="space-y-2">
-                    {dailyTasks.map((task, index) => (
-                      <div
-                        key={index}
-                        className={`${task.color} p-2 rounded-[16px] flex items-start gap-2 shadow-[0_2px_8px_0_rgba(0,0,0,0.08)]`}
-                      >
-                        <div className="w-4 h-4 rounded-lg border-2 border-white/90 flex-shrink-0 mt-0.5" />
-                        <div className="text-black text-sm font-medium leading-tight">
-                          {task.text}
-                        </div>
-                      </div>
-                    ))}
+                  <Button variant="ghost" size="icon" className="hover:bg-transparent text-gray-400 hover:text-gray-600">
+                    <RotateCw className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div className="h-[calc(3*5rem+2*1rem)]">
+                  <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex flex-col justify-center">
+                    <p className="text-center font-medium flex-grow flex items-center justify-center"
+                      style={{
+                        fontSize: 'clamp(1rem, 3vw, 1.3rem)',
+                        lineHeight: '1.4',
+                        maxWidth: '100%',
+                      }}
+                    >
+                      "The future depends on what you do today."
+                    </p>
+                    <p className="text-right font-semibold text-gray-700 mt-2 pr-4">
+                      Mahatma Gandhi
+                    </p>
                   </div>
                 </div>
               </Card>
 
-              <Card className="p-3 bg-white rounded-[20px] shadow-lg flex-1">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <img 
-                        src="https://res.cloudinary.com/drkudvyog/image/upload/v1733951551/Areas_of_Improvement_icon_duha_kplce1.png"
-                        alt="Today's Focus Icon"
-                        className="h-6 w-6"
-                      />
-                      <h2 className="text-2xl font-semibold text-[#000000]">Today's Focus</h2>
-                    </div>
-                  <Button variant="ghost" size="icon" className="hover:bg-transparent">
-                    <RefreshCcw className="w-4 h-4 text-gray-400" />
+              <Card className="p-6 bg-white rounded-[20px] shadow-lg flex-1">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-2">
+                    <img 
+                      src="https://res.cloudinary.com/drkudvyog/image/upload/v1733951551/Areas_of_Improvement_icon_duha_kplce1.png"
+                      alt="Today's Focus Icon"
+                      className="h-6 w-6"
+                    />
+                    <h2 className="text-2xl font-bold text-[#000000]">Today's Focus</h2>
+                  </div>
+                  <Button variant="ghost" size="icon" className="hover:bg-transparent text-gray-400 hover:text-gray-600">
+                    <RotateCw className="w-5 h-5" />
                   </Button>
                 </div>
-                  <div className="space-y-2">
-                    {improvements.map((item, index) => (
-                      <div key={index} className={`${item.color} p-2 rounded-[16px] flex items-start gap-2 shadow-[0_2px_8px_0_rgba(0,0,0,0.08)]`}>
-                        <TrendingUp className="w-4 h-4 text-white/90 mt-0.5" />
-                        <div className="text-black text-sm font-medium">{item.text}</div>
-                      </div>
-                    ))}
+                <div className="h-[calc(3*5rem+2*1rem)]">
+                  <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex items-center justify-center">
+                    <p className="text-center font-medium"
+                      style={{
+                        fontSize: 'clamp(1rem, 4vw, 1.5rem)',
+                        lineHeight: '1.2',
+                        maxWidth: '100%',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: '3',
+                        WebkitBoxOrient: 'vertical',
+                      }}
+                    >
+                      Investor should ask clearer questions on final terms and conditions
+                    </p>
                   </div>
                 </div>
               </Card>
