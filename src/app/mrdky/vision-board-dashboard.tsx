@@ -15,7 +15,6 @@ import League from './league';
 import { debounce } from 'lodash';
 import { Maximize2 } from 'lucide-react'
 import LoadingSpinner from './loading-spinner'
-import { useState, useEffect } from 'react';
 import { getRandomQuote, shouldUpdateQuote } from './quoteUtils';
 
 const MobileNotice = () => (
