@@ -428,31 +428,31 @@ export default function VisionBoardDashboardClient() {
   };
 
   // Quote effect
-useEffect(() => {
-  const stored = localStorage.getItem('dailyQuote');
-  if (stored) {
-    const { quote: storedQuote, timestamp } = JSON.parse(stored);
-    if (shouldUpdateQuote(timestamp)) {
-      updateQuote();
-    } else {
-      setQuote(storedQuote);
-    }
-  } else {
-    updateQuote();
-  }
-
-  const interval = setInterval(() => {
+  useEffect(() => {
     const stored = localStorage.getItem('dailyQuote');
     if (stored) {
-      const { timestamp } = JSON.parse(stored);
+      const { quote: storedQuote, timestamp } = JSON.parse(stored);
       if (shouldUpdateQuote(timestamp)) {
         updateQuote();
+      } else {
+        setQuote(storedQuote);
       }
+    } else {
+      updateQuote();
     }
-  }, 60000);
 
-  return () => clearInterval(interval);
-}, []);
+    const interval = setInterval(() => {
+      const stored = localStorage.getItem('dailyQuote');
+      if (stored) {
+        const { timestamp } = JSON.parse(stored);
+        if (shouldUpdateQuote(timestamp)) {
+          updateQuote();
+        }
+      }
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
 // Focus message effect (separate)
 useEffect(() => {
