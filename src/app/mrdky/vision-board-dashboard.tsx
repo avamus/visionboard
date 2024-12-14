@@ -1004,81 +1004,82 @@ return (
               setActiveLeagueCategory={setActiveLeagueCategory}
             />
 
-            <div className="space-y-4 flex flex-col h-full">
-              <Card className="p-6 bg-white rounded-[20px] shadow-lg flex-1">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://res.cloudinary.com/drkudvyog/image/upload/v1733953951/Areas_of_improvement_icon_duha_u5o65j.png"
-                      alt="Quote of the Day Icon"
-                      className="h-6 w-6"
-                    />
-                    <h2 className="text-2xl font-bold text-[#000000]">Quote of the Day</h2>
-                  </div>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="hover:bg-transparent text-gray-400 hover:text-gray-600"
-                    onClick={updateQuote}
-                  >
-                    <RotateCw className="w-5 h-5" />
-                  </Button>
-                </div>
-                  <div className="h-[calc(3*5rem+2*1rem)]">
-                    <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex flex-col justify-center">
-                      <p 
-                        className="text-center font-medium flex-grow flex items-center justify-center"
-                        style={{
-                          fontSize: 'clamp(1rem, 3vw, 1.3rem)',
-                          lineHeight: '1.4',
-                          maxWidth: '100%',
-                        }}
-                      >
-                        {quote.text && `"${quote.text}"`}
-                      </p>
-                      {quote.author && (
-                        <p className="text-right font-semibold text-gray-700 mt-2 pr-4">
-                          {quote.author}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </Card>
+            <div className="space-y-2 flex flex-col h-full">
+  <Card className="p-6 bg-white rounded-[20px] shadow-lg flex-1">
+    <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center gap-2">
+        <img 
+          src="https://res.cloudinary.com/drkudvyog/image/upload/v1733953951/Areas_of_improvement_icon_duha_u5o65j.png"
+          alt="Quote of the Day Icon"
+          className="h-6 w-6"
+        />
+        <h2 className="text-2xl font-bold text-[#000000]">Quote of the Day</h2>
+      </div>
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="hover:bg-transparent text-gray-400 hover:text-gray-600"
+        onClick={updateQuote}
+      >
+        <RotateCw className="w-5 h-5" />
+      </Button>
+    </div>
+    <div className="h-[calc(2.5*4rem+1*1rem)]">
+      <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex flex-col justify-center">
+        <p 
+          className="text-center font-medium flex-grow flex items-center justify-center"
+          style={{
+            fontSize: 'clamp(0.8rem, 2.5vw, 1rem)',
+            lineHeight: '1.4',
+            maxWidth: '100%',
+          }}
+        >
+          {quote.text && `"${quote.text}"`}
+        </p>
+        {quote.author && (
+          <p className="text-right font-semibold text-gray-700 mt-2 pr-4">
+            {quote.author}
+          </p>
+        )}
+      </div>
+    </div>
+  </Card>
 
-              <Card className="p-6 bg-white rounded-[20px] shadow-lg flex-1">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://res.cloudinary.com/drkudvyog/image/upload/v1733951551/Areas_of_Improvement_icon_duha_kplce1.png"
-                      alt="Today's Focus Icon"
-                      className="h-6 w-6"
-                    />
-                    <h2 className="text-2xl font-bold text-[#000000]">Today's Focus</h2>
-                  </div>
-                  <Button variant="ghost" size="icon" className="hover:bg-transparent text-gray-400 hover:text-gray-600">
-                    <RotateCw className="w-5 h-5" />
-                  </Button>
-                </div>
-                <div className="h-[calc(3*5rem+2*1rem)]">
-                  <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex items-center justify-center">
-                    <p className="text-center font-medium"
-                      style={{
-                        fontSize: 'clamp(1rem, 4vw, 1.5rem)',
-                        lineHeight: '1.2',
-                        maxWidth: '100%',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: '3',
-                        WebkitBoxOrient: 'vertical',
-                      }}
-                    >
-                      Investor should ask clearer questions on final terms and conditions
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </div>
+  <Card className="p-6 bg-white rounded-[20px] shadow-lg flex-1">
+    <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center gap-2">
+        <img 
+          src="https://res.cloudinary.com/drkudvyog/image/upload/v1733951551/Areas_of_Improvement_icon_duha_kplce1.png"
+          alt="Today's Focus Icon"
+          className="h-6 w-6"
+        />
+        <h2 className="text-2xl font-bold text-[#000000]">Today's Focus</h2>
+      </div>
+      <Button variant="ghost" size="icon" className="hover:bg-transparent text-gray-400 hover:text-gray-600">
+        <RotateCw className="w-5 h-5" />
+      </Button>
+    </div>
+    <div className="h-[calc(2.5*4rem+1*1rem)]">
+      <div className="p-4 bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08)] h-full flex items-center justify-center">
+        <p className="text-center font-medium"
+          style={{
+            fontSize: 'clamp(0.8rem, 3vw, 1.2rem)',
+            lineHeight: '1.2',
+            maxWidth: '100%',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: '3',
+            WebkitBoxOrient: 'vertical',
+          }}
+        >
+          Investor should ask clearer questions on final terms and conditions
+        </p>
+      </div>
+    </div>
+  </Card>
+</div>
+
 
             <AchievementContent achievements={achievementData} />
 
