@@ -427,31 +427,46 @@ export default function VisionBoardDashboardClient() {
     }));
   };
 
-  useEffect(() => {
+  // Quote effect
+useEffect(() => {
+  const stored = localStorage.getItem('dailyQuote');
+  if (stored) {
+    const { quote: storedQuote, timestamp } = JSON.parse(stored);
+    if (shouldUpdateQuote(timestamp)) {
+      updateQuote();
+    } else {
+      setQuote(storedQuote);
+    }
+  } else {
+    updateQuote();
+  }
+
+  const interval = setInterval(() => {
     const stored = localStorage.getItem('dailyQuote');
     if (stored) {
-      const { quote: storedQuote, timestamp } = JSON.parse(stored);
+      const { timestamp } = JSON.parse(stored);
       if (shouldUpdateQuote(timestamp)) {
         updateQuote();
-      } else {
-        setQuote(storedQuote);
       }
-    } else {
-      updateQuote();
     }
+  }, 60000);
 
-  useEffect(() => {
-    const stored = localStorage.getItem('dailyFocus');
-    if (stored) {
-      const { message: storedMessage, timestamp } = JSON.parse(stored);
-      if (shouldUpdateQuote(timestamp)) {
-        updateFocusMessage();
-      } else {
-        setFocusMessage(storedMessage);
-      }
-    } else {
+  return () => clearInterval(interval);
+}, []);
+
+// Focus message effect (separate)
+useEffect(() => {
+  const stored = localStorage.getItem('dailyFocus');
+  if (stored) {
+    const { message: storedMessage, timestamp } = JSON.parse(stored);
+    if (shouldUpdateQuote(timestamp)) {
       updateFocusMessage();
+    } else {
+      setFocusMessage(storedMessage);
     }
+  } else {
+    updateFocusMessage();
+  }
 
   const interval = setInterval(() => {
     const stored = localStorage.getItem('dailyFocus');
