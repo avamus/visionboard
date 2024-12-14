@@ -415,6 +415,17 @@ export default function VisionBoardDashboardClient() {
     }));
   };
 
+  const [focusMessage, setFocusMessage] = useState("");
+
+  const updateFocusMessage = () => {
+    const newMessage = getRandomFocusMessage();
+    setFocusMessage(newMessage);
+    localStorage.setItem('dailyFocus', JSON.stringify({
+      message: newMessage,
+      timestamp: new Date().toISOString()
+    }));
+  };
+
   useEffect(() => {
     const stored = localStorage.getItem('dailyQuote');
     if (stored) {
@@ -427,6 +438,32 @@ export default function VisionBoardDashboardClient() {
     } else {
       updateQuote();
     }
+
+  useEffect(() => {
+    const stored = localStorage.getItem('dailyFocus');
+    if (stored) {
+      const { message: storedMessage, timestamp } = JSON.parse(stored);
+      if (shouldUpdateQuote(timestamp)) {
+        updateFocusMessage();
+      } else {
+        setFocusMessage(storedMessage);
+      }
+    } else {
+      updateFocusMessage();
+    }
+
+  const interval = setInterval(() => {
+    const stored = localStorage.getItem('dailyFocus');
+    if (stored) {
+      const { timestamp } = JSON.parse(stored);
+      if (shouldUpdateQuote(timestamp)) {
+        updateFocusMessage();
+      }
+    }
+  }, 60000);
+
+  return () => clearInterval(interval);
+}, []);
 
     const interval = setInterval(() => {
       const stored = localStorage.getItem('dailyQuote');
@@ -1055,7 +1092,12 @@ return (
         />
         <h2 className="text-2xl font-bold text-[#000000]">Today's Focus</h2>
       </div>
-      <Button variant="ghost" size="icon" className="hover:bg-transparent text-gray-400 hover:text-gray-600">
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="hover:bg-transparent text-gray-400 hover:text-gray-600"
+        onClick={updateFocusMessage}
+      >
         <RotateCw className="w-5 h-5" />
       </Button>
     </div>
@@ -1073,12 +1115,12 @@ return (
             WebkitBoxOrient: 'vertical',
           }}
         >
-          Investor should ask clearer questions on final terms and conditions
+          {focusMessage}
         </p>
       </div>
     </div>
   </Card>
-</div>
+  </div>
 
 
             <AchievementContent achievements={achievementData} />
