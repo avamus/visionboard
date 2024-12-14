@@ -16,6 +16,7 @@ import { debounce } from 'lodash';
 import { Maximize2 } from 'lucide-react'
 import LoadingSpinner from './loading-spinner'
 import { getRandomQuote, shouldUpdateQuote } from './quoteUtils';
+import { getRandomFocusMessage } from './focusMessages';
 
 const MobileNotice = () => (
   <Card className="p-6 bg-white rounded-[20px] shadow-lg text-center">
