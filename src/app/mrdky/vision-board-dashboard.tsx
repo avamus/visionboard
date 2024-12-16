@@ -481,19 +481,6 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, []);
 
-    const interval = setInterval(() => {
-      const stored = localStorage.getItem('dailyQuote');
-      if (stored) {
-        const { timestamp } = JSON.parse(stored);
-        if (shouldUpdateQuote(timestamp)) {
-        updateQuote();
-        }
-      }
-    }, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
-
 useEffect(() => {
     getMemberId().then(setMemberId);
   }, []);
